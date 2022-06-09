@@ -8,13 +8,16 @@ import {
   ERROR,
   PENDING
 } from '../../constants/status';
-
+import {
+  TODO_STORAGE
+} from '../../constants/storage';
 import {
   setLocalStorageValue,
   getLocalStorageValue
 } from '../../utils/dataStorage';
-
-const TODO_STORAGE = "todo";
+import {
+  sortTodoList
+} from '../../utils/todo';
 
 const dummyTodo = [
   { id: 0, todo: 'Todo 1', text: 'Todo Sample', date: new Date(), status: 'PENDING'},
@@ -24,18 +27,10 @@ const dummyTodo = [
   { id: 4, todo: 'Todo 5', text: 'Todo Sample', date: new Date(), status: 'PENDING'}
 ];
 
-const sortTodo = (arrayObj) => {
-  return arrayObj.sort(function(a, b) {
-    var c = new Date(a.date);
-    var d = new Date(b.date);
-    return c-d;
-  });
-};
-
 export const actionFetchTodo = () => async (dispatch, getState) => {
   try {
     dispatch({ type: FETCH_TODO + PENDING });
-    let data = sortTodo(dummyTodo);
+    let data = sortTodoList(dummyTodo);
     if (!getLocalStorageValue(TODO_STORAGE)) {
       setLocalStorageValue(TODO_STORAGE, data);
     } else {
@@ -71,7 +66,7 @@ export const actionAddTodo = (newTodo) => async (dispatch, getState) => {
       id: todo.length,
       status: 'PENDING'
     });
-    dispatch({ type: ADD_TODO + SUCCESS, payload: sortTodo(todo) });
+    dispatch({ type: ADD_TODO + SUCCESS, payload: sortTodoList(todo) });
     if (getLocalStorageValue(TODO_STORAGE)) {
       const { todo } = getState().appTodo;
       setLocalStorageValue(TODO_STORAGE, todo);
