@@ -68,7 +68,6 @@ const TodoForm = ({
       resetForm();
     }
   };
-  console.log(moment(new Date()).format("YYYY-MM-DDThh:mm"));
 
   return (
     <Container>
@@ -119,7 +118,7 @@ const TodoForm = ({
 };
 
 export default connect(
-  (state) => ({}),
+  () => ({}),
   {
     actionAddTodo
   }
