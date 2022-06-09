@@ -18,19 +18,12 @@ import {
 import {
   sortTodoList
 } from '../../utils/todo';
-
-const dummyTodo = [
-  { id: 0, todo: 'Todo 1', text: 'Todo Sample', date: new Date(), status: 'PENDING'},
-  { id: 1, todo: 'Todo 2', text: 'Todo Sample', date: new Date(), status: 'DONE'},
-  { id: 2, todo: 'Todo 3', text: 'Todo Sample', date: new Date('March 15, 2022 06:00 PM'), status: 'PENDING'},
-  { id: 3, todo: 'Todo 4', text: 'Todo Sample', date: new Date(), status: 'PENDING'},
-  { id: 4, todo: 'Todo 5', text: 'Todo Sample', date: new Date(), status: 'PENDING'}
-];
+import todoData from '../../db/todoData';
 
 export const actionFetchTodo = () => async (dispatch, getState) => {
   try {
     dispatch({ type: FETCH_TODO + PENDING });
-    let data = sortTodoList(dummyTodo);
+    let data = sortTodoList(todoData);
     if (!getLocalStorageValue(TODO_STORAGE)) {
       setLocalStorageValue(TODO_STORAGE, data);
     } else {

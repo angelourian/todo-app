@@ -7,6 +7,8 @@ import TableRow from '@mui/material/TableRow';
 import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 
+import { TODO_DONE } from '../../constants/status';
+
 const StyledButton = styledMaterial(Button)(() => ({
   backgroundColor: '#0b6bf2',
   color: '#fff',
@@ -54,12 +56,12 @@ const StyledTableRow = styledMaterial(TableRow)(({ theme, disabled }) => ({
 }));
 
 const TodoItem = ({ item, onItemClick }) => (
-  <StyledTableRow key={item.name} disabled={item.status === 'DONE'} onClick={() => onItemClick(item)}>
-    <StyledTableCell><Checkbox checked={item.status === 'DONE'} disabled={item.status === 'DONE'} /></StyledTableCell>
+  <StyledTableRow key={item.name} disabled={item.status === TODO_DONE} onClick={() => onItemClick(item)}>
+    <StyledTableCell><Checkbox checked={item.status === TODO_DONE} disabled={item.status === TODO_DONE} /></StyledTableCell>
     <StyledTableCell  component="th" scope="row">{moment(item.date).format("YYYY-MM-DD LT")}</StyledTableCell>
     <StyledTableCell>{item.todo}</StyledTableCell>
     <StyledTableCell align="center">
-      <StyledButton variant="contained" disabled={item.status === 'DONE'} onClick={() => onItemClick(item)}>
+      <StyledButton variant="contained" disabled={item.status === TODO_DONE} onClick={() => onItemClick(item)}>
         {
           item.status
         }

@@ -18,6 +18,7 @@ import {
   actionFetchTodo,
   actionUpdateTodo
 } from '../../redux/todo';
+import { TODO_DONE } from '../../constants/status';
 import TodoItem from './TodoItem';
 import TodoForm from './TodoForm';
 
@@ -72,7 +73,7 @@ const TodoPage = ({
   const updateStatus = (data) => {
     actionUpdateTodo({
       ...data,
-      status: 'DONE'
+      status: TODO_DONE
     });
   };
 
