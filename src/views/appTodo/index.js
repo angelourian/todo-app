@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import moment from 'moment';
 
 import { styled as styledMaterial } from '@mui/material/styles';
 import Table from '@mui/material/Table';
@@ -10,7 +9,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 
 import styled from '@emotion/styled';
@@ -20,6 +18,7 @@ import {
   actionFetchTodo,
   actionUpdateTodo
 } from '../../redux/todo';
+import TodoItem from './TodoItem';
 
 const Container = styled('div')({
   backgroundColor: '#fff',
@@ -57,57 +56,6 @@ const StyledTableCell = styledMaterial(TableCell)(({ theme }) => ({
     fontSize: 14,
   },
 }));
-
-const StyledButton = styledMaterial(Button)(() => ({
-  backgroundColor: '#0b6bf2',
-  color: '#fff',
-  minWidth: 200,
-  height: 50,
-  fontSize: 15,
-  borderRadius: 5,
-  '&:hover': {
-    backgroundColor: '#0243eb'
-  },
-  '&:disabled': {
-    backgroundColor: '#dbe9fd',
-    color: '#fff',
-  }
-}));
-
-const StyledTableRow = styledMaterial(TableRow)(({ theme, disabled }) => ({
-  '&:nth-of-type(odd)': {
-    backgroundColor: theme.palette.action.hover,
-  },
-  // hide last border
-  '&:last-child td, &:last-child th': {
-    border: 0,
-  },
-  '&:hover': {
-    cursor: disabled ? 'auto' : 'pointer',
-    backgroundColor: 'rgba(0, 0, 0, 0.1)'
-  },
-  '& th': {
-    opacity: disabled ? 0.5 : 1,
-  },
-  '& td:not(:last-child)': {
-    opacity: disabled ? 0.5 : 1,
-  }
-}));
-
-const TodoItem = ({ item, onItemClick }) => (
-  <StyledTableRow key={item.name} disabled={item.status === 'DONE'} onClick={() => onItemClick(item)}>
-    <StyledTableCell><Checkbox checked={item.status === 'DONE'} disabled={item.status === 'DONE'} /></StyledTableCell>
-    <StyledTableCell  component="th" scope="row">{moment(item.date).format("YYYY-MM-DD LT")}</StyledTableCell>
-    <StyledTableCell>{item.todo}</StyledTableCell>
-    <StyledTableCell align="center">
-      <StyledButton variant="contained" disabled={item.status === 'DONE'} onClick={() => onItemClick(item)}>
-        {
-          item.status
-        }
-      </StyledButton>
-    </StyledTableCell>
-  </StyledTableRow>
-);
 
 const TodoPage = ({
   isFetching,
