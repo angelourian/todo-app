@@ -13,11 +13,12 @@ This project was created with the following libraries:
 ## Available Scripts
 
 ## `git clone <ToDoList repository>`
-You may visit the [Github](https://git-scm.com/docs/git-clone) for your reference on how to clone github. Or you may download the templates thru Code button above and click "Download ZIP".
+You may visit the [Github](https://git-scm.com/docs/git-clone) for your reference on how to clone github. Or you may download the template thru Code button above and click "Download ZIP".
 
 After downloading, you can run on your CLI:
 
 ### `npm install` or `yarn`
+
 
 In the project directory, you can run:
 
@@ -28,6 +29,20 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
+
+
+# Feature List of Todo List App
+
+1. Simple Material UI Design for ToDo List and Form
+2. Create ToDo by Title and Date
+3. Read ToDo List with "Done" or finished feature
+4. ToDo List sorting by Date
+
+# For Another Phase or Improvement
+
+1. Edit and Delete ToDo
+2. Disable Previous Dates
+
 
 ## Note: This project repository is created by @angelourian for personal career reason!
 

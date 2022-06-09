@@ -83,6 +83,7 @@ const TodoForm = ({
           fullWidth
           label="Title"
           id="title"
+          placeholder="Enter Title"
           value={formValue.todo}
           onChange={(e) => handleFormChange('todo', e.target.value)}
           helperText={(showError === 'title') ? 'This field is required' : ''}
@@ -98,7 +99,7 @@ const TodoForm = ({
           id="datetime-local"
           label="Date"
           type="datetime-local"
-          value={String(moment(new Date()).format("YYYY-MM-DDThh:mm"))}
+          defaultValue={String(moment(new Date()).format("YYYY-MM-DDThh:mm"))}
           sx={{ width: 250 }}
           onChange={(e) => handleFormChange('date', e.target.value)}
           InputLabelProps={{
