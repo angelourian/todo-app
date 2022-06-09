@@ -89,6 +89,7 @@ const TodoPage = ({
         )
       }
       <StyledTableContainer>
+        <h2>Todo List</h2>
         <TodoForm />
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
