@@ -20,10 +20,11 @@ import {
 } from '../../utils/todo';
 import todoData from '../../db/todoData';
 
-export const actionFetchTodo = () => async (dispatch, getState) => {
+export const actionFetchTodo = () => async (dispatch) => {
   try {
     dispatch({ type: FETCH_TODO + PENDING });
     let data = sortTodoList(todoData);
+    // if there's real api, no need for this and always to setLocalStorageValue 
     if (!getLocalStorageValue(TODO_STORAGE)) {
       setLocalStorageValue(TODO_STORAGE, data);
     } else {
