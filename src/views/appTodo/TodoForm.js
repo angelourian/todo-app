@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
 import styled from '@emotion/styled';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 
+import isEmpty from '../../utils/isEmpty';
 import {
   actionAddTodo
 } from '../../redux/todo';
@@ -39,6 +41,7 @@ const TodoForm = ({
     todo: '',
     date: new Date()
   });
+  const [showError, setShowError] = useState('');
 
   const handleFormChange = (name, value) => {
     setFormValue({
@@ -50,14 +53,22 @@ const TodoForm = ({
   const resetForm = () => {
     setFormValue({
       todo: '',
-      date: new Date()
+      date: moment(new Date()).format("YYYY-MM-DD LT")
     })
+    setShowError('');
   }
 
   const handleAdd = () => {
-    actionAddTodo(formValue);
-    resetForm();
+    if (isEmpty(formValue.todo)) {
+      setShowError('title');
+    } else if (isEmpty(formValue.date)) {
+      setShowError('date');
+    } else {
+      actionAddTodo(formValue);
+      resetForm();
+    }
   };
+  console.log(moment(new Date()).format("YYYY-MM-DDThh:mm"));
 
   return (
     <Container>
@@ -68,11 +79,13 @@ const TodoForm = ({
         }}
       >
         <TextField
+          error={showError === 'title'}
           fullWidth
           label="Title"
           id="title"
           value={formValue.todo}
           onChange={(e) => handleFormChange('todo', e.target.value)}
+          helperText={(showError === 'title') ? 'This field is required' : ''}
         />
       </Box>
       <Box
@@ -85,13 +98,14 @@ const TodoForm = ({
           id="datetime-local"
           label="Date"
           type="datetime-local"
-          // defaultValue="2022-06-10T10:30"
-          value={formValue.date}
+          value={String(moment(new Date()).format("YYYY-MM-DDThh:mm"))}
           sx={{ width: 250 }}
           onChange={(e) => handleFormChange('date', e.target.value)}
           InputLabelProps={{
             shrink: true,
           }}
+          error={showError === 'date'}
+          helperText={(showError === 'date') ? 'This field is required' : ''}
         />
       </Box>
       <StyledButton
