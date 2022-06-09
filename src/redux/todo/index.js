@@ -5,6 +5,7 @@ export const UPDATE_TODO = '[TODO] UPDATE_TODO';
 export const ADD_TODO = '[TODO] ADD_TODO';
 
 export {
+  actionAddTodo,
   actionFetchTodo,
   actionUpdateTodo
 } from './todoActions';

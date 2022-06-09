@@ -19,6 +19,7 @@ import {
   actionUpdateTodo
 } from '../../redux/todo';
 import TodoItem from './TodoItem';
+import TodoForm from './TodoForm';
 
 const Container = styled('div')({
   backgroundColor: '#fff',
@@ -66,7 +67,7 @@ const TodoPage = ({
   
   useEffect(() => {
     actionFetchTodo();
-  }, []);
+  }, [actionFetchTodo]);
   
   const updateStatus = (data) => {
     actionUpdateTodo({
@@ -88,6 +89,7 @@ const TodoPage = ({
         )
       }
       <StyledTableContainer>
+        <TodoForm />
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 700 }} aria-label="customized table">
             <TableHead>

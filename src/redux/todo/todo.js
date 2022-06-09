@@ -19,12 +19,14 @@ const todoReducer = (state = initialState, action = {}) => {
   switch (action.type) {
     case FETCH_TODO + PENDING: 
     case UPDATE_TODO + PENDING:
+    case ADD_TODO + PENDING:
       return {
         ...state,
         isFetching: true
       }
     case FETCH_TODO + ERROR: 
     case UPDATE_TODO + ERROR:
+    case ADD_TODO + ERROR:
       return {
         ...state,
         isFetching: false
@@ -37,11 +39,17 @@ const todoReducer = (state = initialState, action = {}) => {
       };
     case UPDATE_TODO + SUCCESS:
       const todo = state.todo;
-      const foundIndex = todo.findIndex(x => x.id == action.payload.id);
+      const foundIndex = todo.findIndex(x => x.id === action.payload.id);
       todo[foundIndex] = action.payload;
       return {
         ...state,
         todo,
+        isFetching: false
+      }
+    case ADD_TODO + SUCCESS:
+      return {
+        ...state,
+        todo: action.payload,
         isFetching: false
       }
     default: return state;

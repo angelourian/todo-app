@@ -1,11 +1,8 @@
-import moment from 'moment';
-
 import {
   ADD_TODO,
   FETCH_TODO,
   UPDATE_TODO,
 } from './index';
-
 import {
   SUCCESS,
   ERROR,
@@ -14,12 +11,11 @@ import {
 
 import {
   setLocalStorageValue,
-  getLocalStorageValue,
+  getLocalStorageValue
 } from '../../utils/dataStorage';
 
 const TODO_STORAGE = "todo";
 
-// For Initial Record
 const dummyTodo = [
   { id: 0, todo: 'Todo 1', text: 'Todo Sample', date: new Date(), status: 'PENDING'},
   { id: 1, todo: 'Todo 2', text: 'Todo Sample', date: new Date(), status: 'DONE'},
@@ -42,8 +38,6 @@ export const actionFetchTodo = () => async (dispatch, getState) => {
     let data = sortTodo(dummyTodo);
     if (!getLocalStorageValue(TODO_STORAGE)) {
       setLocalStorageValue(TODO_STORAGE, data);
-    } else if (data.length !== getLocalStorageValue(TODO_STORAGE).length) {  
-      setLocalStorageValue(TODO_STORAGE, data);
     } else {
       data = getLocalStorageValue(TODO_STORAGE);
     }
@@ -65,5 +59,26 @@ export const actionUpdateTodo = (todo) => async (dispatch, getState) => {
     }
   } catch (e) {
     dispatch({ type: UPDATE_TODO + ERROR });
+  }
+};
+
+export const actionAddTodo = (newTodo) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: ADD_TODO + PENDING });
+    const { todo } = getState().appTodo;
+    todo.push({
+      ...newTodo,
+      id: todo.length,
+      status: 'PENDING'
+    });
+    dispatch({ type: ADD_TODO + SUCCESS, payload: sortTodo(todo) });
+    if (getLocalStorageValue(TODO_STORAGE)) {
+      const { todo } = getState().appTodo;
+      setLocalStorageValue(TODO_STORAGE, todo);
+    }else {
+      setLocalStorageValue(TODO_STORAGE, todo);
+    }
+  } catch (e) {
+    dispatch({ type: ADD_TODO + ERROR });
   }
 };
